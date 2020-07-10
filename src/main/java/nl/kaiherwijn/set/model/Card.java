@@ -9,7 +9,7 @@ public class Card {
 
     public enum Fill {FULL, STRIPED, EMPTY}
 
-    public enum Shape {RECTANGLE, OVAL, RHOMBUS}
+    public enum Shape {WAVE, OVAL, RHOMBUS}
 
     public enum Number {ONE, TWO, THREE}
 
@@ -61,7 +61,6 @@ public class Card {
     }
 
     public boolean equals(Card card) {
-
         return card != null && (this.color == card.getColor() && this.fill == card.getFill() && this.shape == card.getShape() && this.number == card.getNumber());
     }
 

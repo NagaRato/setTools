@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SetServiceTest {
 
     @Autowired
-    private SetService setService = new SetService();
+    private SetService setService;
 
     @Test
     void isSetToFalseOfSingleCard() {
@@ -45,7 +45,7 @@ class SetServiceTest {
     @Test
     void isSetToFalseOfAlmostCompletlyDifferentCards() {
         List<Card> cards = new ArrayList<>();
-        cards.add(new Card(Card.Color.RED, Card.Fill.EMPTY, Card.Shape.RECTANGLE, Card.Number.TWO));
+        cards.add(new Card(Card.Color.RED, Card.Fill.EMPTY, Card.Shape.WAVE, Card.Number.TWO));
         cards.add(new Card(Card.Color.BLUE, Card.Fill.FULL, Card.Shape.OVAL, Card.Number.ONE));
         cards.add(new Card(Card.Color.GREEN, Card.Fill.STRIPED, Card.Shape.RHOMBUS, Card.Number.THREE));
 
@@ -55,11 +55,24 @@ class SetServiceTest {
     @Test
     void isSetToFalseOfFourCards() {
         List<Card> cards = new ArrayList<>();
-        cards.add(new Card(Card.Color.RED, Card.Fill.EMPTY, Card.Shape.RECTANGLE, Card.Number.TWO));
+        cards.add(new Card(Card.Color.RED, Card.Fill.EMPTY, Card.Shape.WAVE, Card.Number.TWO));
         cards.add(new Card(Card.Color.BLUE, Card.Fill.FULL, Card.Shape.OVAL, Card.Number.ONE));
         cards.add(new Card(Card.Color.GREEN, Card.Fill.STRIPED, Card.Shape.RHOMBUS, Card.Number.THREE));
         cards.add(new Card(Card.Color.GREEN, Card.Fill.STRIPED, Card.Shape.RHOMBUS, Card.Number.ONE));
 
         assertFalse(SetService.isSet(cards));
     }
+
+    @Test
+    void hasSetToTrueOfFourCards() {
+        List<Card> cards = new ArrayList<>();
+        cards.add(new Card(Card.Color.RED, Card.Fill.EMPTY, Card.Shape.WAVE, Card.Number.TWO));
+        cards.add(new Card(Card.Color.BLUE, Card.Fill.FULL, Card.Shape.OVAL, Card.Number.ONE));
+        cards.add(new Card(Card.Color.GREEN, Card.Fill.STRIPED, Card.Shape.RHOMBUS, Card.Number.THREE));
+        cards.add(new Card(Card.Color.GREEN, Card.Fill.STRIPED, Card.Shape.RHOMBUS, Card.Number.ONE));
+
+        assertTrue(SetService.hasSet(cards), "This list of cards contains a set but the method hasSet(List<Card>) did nog found it.");
+    }
+
+
 }

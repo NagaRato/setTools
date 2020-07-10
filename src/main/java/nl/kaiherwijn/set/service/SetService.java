@@ -18,13 +18,15 @@ public class SetService {
 
     public static boolean hasSet(List<Card> cards) {
         Optional<Card> foundCard = Optional.empty();
-        if (!areAllUnique(cards)) {
+        if (!containsDuplicates(cards)) {
             return false;
         }
         else {
             for (Card firstCard : cards) {
                 for (Card secondCard : cards) {
-                    foundCard = cards.stream().filter(c -> c.equals(calculateComplementingCard(Arrays.asList(firstCard, secondCard)))).findFirst();
+                    if (!foundCard.isPresent()) {
+                        foundCard = cards.stream().filter(c -> c.equals(calculateComplementingCard(Arrays.asList(firstCard, secondCard)))).findFirst();
+                    }
                 }
             }
         }
@@ -32,7 +34,7 @@ public class SetService {
     }
 
     public static boolean isSet(List<Card> cards) {
-        if (cards.size() != 3 || !areAllUnique(cards)) {
+        if (cards.size() != 3 || !containsDuplicates(cards)) {
             return false;
         }
         else if (isSetForColor(cards) && isSetForNumber(cards) && isSetForShape(cards) && isSetForFill(cards)) {
@@ -128,12 +130,12 @@ public class SetService {
         return true;
     }
 
-    public static <T> boolean areAllUnique(List<T> list){
+    public static <T> boolean containsDuplicates(List<T> list){
         for (T t: list) {
             if (list.stream().filter(i -> i.equals(t)).count() > 1) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 }
