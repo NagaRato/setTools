@@ -18,7 +18,7 @@ public class SetService {
 
     public static boolean hasSet(List<Card> cards) {
         Optional<Card> foundCard = Optional.empty();
-        if (!containsDuplicates(cards)) {
+        if (containsDuplicates(cards)) {
             return false;
         }
         else {
@@ -34,7 +34,7 @@ public class SetService {
     }
 
     public static boolean isSet(List<Card> cards) {
-        if (cards.size() != 3 || !containsDuplicates(cards)) {
+        if (cards.size() != 3 || containsDuplicates(cards)) {
             return false;
         }
         else if (isSetForColor(cards) && isSetForNumber(cards) && isSetForShape(cards) && isSetForFill(cards)) {
